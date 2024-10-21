@@ -4,9 +4,8 @@ import {
   MongooseModuleOptions,
   MongooseOptionsFactory,
 } from '@nestjs/mongoose';
-import { AllConfigType } from '../config/config.type';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
-
+import { AllConfigType } from '../config/config.type';
 @Injectable()
 export class MongooseConfigService implements MongooseOptionsFactory {
   constructor(private configService: ConfigService<AllConfigType>) {}

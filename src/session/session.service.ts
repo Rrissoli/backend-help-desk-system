@@ -1,45 +1,51 @@
 import { Injectable } from '@nestjs/common';
-
-import { SessionRepository } from './infrastructure/persistence/session.repository';
-import { Session } from './domain/session';
-import { User } from '../users/domain/user';
-import { NullableType } from '../utils/types/nullable.type';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Not, Repository } from 'typeorm';
+import { User } from '../users/entities/user.entity';
+import { Session } from './entities/session.entity';
 
 @Injectable()
 export class SessionService {
-  constructor(private readonly sessionRepository: SessionRepository) {}
+  constructor(
+    @InjectRepository(Session)
+    private sessionRepository: Repository<Session>,
+  ) {}
 
-  findById(id: Session['id']): Promise<NullableType<Session>> {
-    return this.sessionRepository.findById(id);
+  async create(data: { user: User; hash: string }): Promise<Session> {
+    const session = this.sessionRepository.create(data);
+    return await this.sessionRepository.save(session);
   }
 
-  create(
-    data: Omit<Session, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
-  ): Promise<Session> {
-    return this.sessionRepository.create(data);
+  async findById(id: number): Promise<Session | null> {
+    const session = await this.sessionRepository.findOne({ where: { id } });
+    if (!session) {
+      throw new Error(`Session with id ${id} not found`);
+    }
+    return session;
   }
 
-  update(
-    id: Session['id'],
-    payload: Partial<
-      Omit<Session, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>
-    >,
-  ): Promise<Session | null> {
-    return this.sessionRepository.update(id, payload);
+  async deleteById(id: number): Promise<void> {
+    await this.sessionRepository.delete(id);
   }
 
-  deleteById(id: Session['id']): Promise<void> {
-    return this.sessionRepository.deleteById(id);
+  async deleteByUserId({ userId }: { userId: number }): Promise<void> {
+    await this.sessionRepository.delete({ user: { id: userId } });
   }
+  async update(
+    sessionId: number,
+    updateData: Partial<Session>,
+  ): Promise<void> {}
 
-  deleteByUserId(conditions: { userId: User['id'] }): Promise<void> {
-    return this.sessionRepository.deleteByUserId(conditions);
-  }
-
-  deleteByUserIdWithExclude(conditions: {
-    userId: User['id'];
-    excludeSessionId: Session['id'];
+  async deleteByUserIdWithExclude({
+    userId,
+    excludeSessionId,
+  }: {
+    userId: number;
+    excludeSessionId: number;
   }): Promise<void> {
-    return this.sessionRepository.deleteByUserIdWithExclude(conditions);
+    await this.sessionRepository.delete({
+      user: { id: userId },
+      id: Not(excludeSessionId),
+    });
   }
 }

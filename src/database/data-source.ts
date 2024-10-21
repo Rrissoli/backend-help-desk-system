@@ -11,20 +11,18 @@ export const AppDataSource = new DataSource({
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  synchronize: process.env.DATABASE_SYNCHRONIZE === 'true',
-  dropSchema: false,
+  synchronize: true,
+  dropSchema: true,
   keepConnectionAlive: true,
-  logging: process.env.NODE_ENV !== 'production',
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  softDelete: true,
+  logging: false,
+  entities: [__dirname + '/../modules/**/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   cli: {
     entitiesDir: 'src',
-
     subscribersDir: 'subscriber',
   },
   extra: {
-    // based on https://node-postgres.com/api/pool
-    // max connection pool size
     max: process.env.DATABASE_MAX_CONNECTIONS
       ? parseInt(process.env.DATABASE_MAX_CONNECTIONS, 10)
       : 100,
