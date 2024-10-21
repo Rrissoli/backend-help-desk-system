@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { Role } from '../../roles/entities/role.entity';
+import { Role } from '../../roles/domain/role.entity';
 import { Session } from '../../session/entities/session.entity';
 import { EntityRelationalHelper } from '../../utils/relational-entity-helper';
 

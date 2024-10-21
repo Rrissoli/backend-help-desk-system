@@ -31,10 +31,9 @@ export class SessionService {
   async deleteByUserId({ userId }: { userId: number }): Promise<void> {
     await this.sessionRepository.delete({ user: { id: userId } });
   }
-  async update(
-    sessionId: number,
-    updateData: Partial<Session>,
-  ): Promise<void> {}
+  async update(sessionId: number, updateData: Partial<Session>): Promise<void> {
+    await this.sessionRepository.update(sessionId, updateData);
+  }
 
   async deleteByUserIdWithExclude({
     userId,

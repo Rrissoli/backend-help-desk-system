@@ -5,7 +5,8 @@ import { UpdateDemandAreaDto } from './dto/update-demand-area.dto';
 @Injectable()
 export class DemandAreaService {
   create(createDemandAreaDto: CreateDemandAreaDto) {
-    return 'This action adds a new demandArea';
+    // Use createDemandAreaDto to add a new demandArea
+    return `This action adds a new demandArea with the following details: ${JSON.stringify(createDemandAreaDto)}`;
   }
 
   findAll() {
@@ -17,7 +18,8 @@ export class DemandAreaService {
   }
 
   update(id: number, updateDemandAreaDto: UpdateDemandAreaDto) {
-    return `This action updates a #${id} demandArea`;
+    // Use updateDemandAreaDto to update the demandArea
+    return `This action updates a #${id} demandArea with the following details: ${JSON.stringify(updateDemandAreaDto)}`;
   }
 
   remove(id: number) {

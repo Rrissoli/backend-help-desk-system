@@ -5,7 +5,7 @@ import { UpdateAgentTeamDto } from './dto/update-agent-team.dto';
 @Injectable()
 export class AgentTeamsService {
   create(createAgentTeamDto: CreateAgentTeamDto) {
-    return 'This action adds a new agentTeam';
+    return `This action adds a new agentTeam with the following details: ${JSON.stringify(createAgentTeamDto)}`;
   }
 
   findAll() {
@@ -17,7 +17,7 @@ export class AgentTeamsService {
   }
 
   update(id: number, updateAgentTeamDto: UpdateAgentTeamDto) {
-    return `This action updates a #${id} agentTeam`;
+    return `This action updates a #${id} agentTeam with the following details: ${JSON.stringify(updateAgentTeamDto)}`;
   }
 
   remove(id: number) {

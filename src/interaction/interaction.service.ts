@@ -5,7 +5,7 @@ import { UpdateInteractionDto } from './dto/update-interaction.dto';
 @Injectable()
 export class InteractionService {
   create(createInteractionDto: CreateInteractionDto) {
-    return 'This action adds a new interaction';
+    return `This action adds a new interaction with the following details: ${JSON.stringify(createInteractionDto)}`;
   }
 
   findAll() {
@@ -17,7 +17,7 @@ export class InteractionService {
   }
 
   update(id: number, updateInteractionDto: UpdateInteractionDto) {
-    return `This action updates a #${id} interaction`;
+    return `This action updates a #${id} interaction with the following details: ${JSON.stringify(updateInteractionDto)}`;
   }
 
   remove(id: number) {

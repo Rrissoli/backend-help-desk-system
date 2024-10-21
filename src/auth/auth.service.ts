@@ -166,7 +166,9 @@ export class AuthService {
       });
     }
 
-    user.status = StatusEnum.active;
+    user.status = {
+      id: StatusEnum.active,
+    };
 
     await this.usersService.update(user.id, user);
   }
@@ -206,7 +208,9 @@ export class AuthService {
     }
 
     user.email = newEmail;
-    user.status = StatusEnum.active;
+    user.status = {
+      id: StatusEnum.active,
+    };
 
     await this.usersService.update(user.id, user);
   }

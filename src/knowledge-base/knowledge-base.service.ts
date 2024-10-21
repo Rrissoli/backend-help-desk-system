@@ -5,7 +5,7 @@ import { UpdateKnowledgeBaseDto } from './dto/update-knowledge-base.dto';
 @Injectable()
 export class KnowledgeBaseService {
   create(createKnowledgeBaseDto: CreateKnowledgeBaseDto) {
-    return 'This action adds a new knowledgeBase';
+    return `This action adds a new knowledgeBase with the following details: ${JSON.stringify(createKnowledgeBaseDto)}`;
   }
 
   findAll() {
@@ -17,7 +17,7 @@ export class KnowledgeBaseService {
   }
 
   update(id: number, updateKnowledgeBaseDto: UpdateKnowledgeBaseDto) {
-    return `This action updates a #${id} knowledgeBase`;
+    return `This action updates a #${id} knowledgeBase with the following details: ${JSON.stringify(updateKnowledgeBaseDto)}`;
   }
 
   remove(id: number) {

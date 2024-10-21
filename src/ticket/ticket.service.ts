@@ -5,7 +5,7 @@ import { UpdateTicketDto } from './dto/update-ticket.dto';
 @Injectable()
 export class TicketService {
   create(createTicketDto: CreateTicketDto) {
-    return 'This action adds a new ticket';
+    return `This action adds a new ticket with data: ${JSON.stringify(createTicketDto)}`;
   }
 
   findAll() {
@@ -17,7 +17,7 @@ export class TicketService {
   }
 
   update(id: number, updateTicketDto: UpdateTicketDto) {
-    return `This action updates a #${id} ticket`;
+    return `This action updates a #${id} ticket with data: ${JSON.stringify(updateTicketDto)}`;
   }
 
   remove(id: number) {
